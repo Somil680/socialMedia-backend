@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Somil680/socialMedia-backend/issues"
   },
-  "homepage": "https://github.com/Somil680/socialMedia-backend#readme"
+  "homepage": "https://github.com/Somil680/socialMedia-backend#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
