@@ -1,0 +1,19 @@
+{
+  "name": "socialmedia-backend",
+  "version": "1.0.0",
+  "description": "this is our social media backend ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Somil680/socialMedia-backend.git"
+  },
+  "author": "Somil agrawal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Somil680/socialMedia-backend/issues"
+  },
+  "homepage": "https://github.com/Somil680/socialMedia-backend#readme"
+}
