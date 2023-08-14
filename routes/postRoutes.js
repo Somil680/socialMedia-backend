@@ -1,13 +1,16 @@
-const express = require("express")
-const router = express.Router()
-const { getAllPosts, getPostByPostId, postLikeHandler, deleteUnLikeHandler } = require("../controllers/postControler")
+import express from "express"
+import { getAllPosts, addPosts, updatePost, getPostById, deletePost, getUserPostById } from "../controllers/postControler"
 
+const postRouter = express.Router()
 
-router.get("/", getAllPosts)
-router.get("/:postId", getPostByPostId)
+postRouter.get("/", getAllPosts)
+postRouter.get("/:id", getPostById)
+postRouter.post("/", addPosts)
+postRouter.patch("/:id", updatePost)
+postRouter.delete("/:id", deletePost)
+postRouter.get("user/:id", getUserPostById)
 
+// postRouter.post("/post/:postId", postLikeHandler)
+// postRouter.delete("/post/:postId", deleteUnLikeHandler)
 
-router.post("/post/:postId", postLikeHandler)
-router.delete("/post/:postId", deleteUnLikeHandler)
-
-module.exports = router
+export default postRouter

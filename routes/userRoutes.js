@@ -1,30 +1,31 @@
-const express = require("express")
+import express from "express"
 const router = express.Router()
-const { getAllUser, getUserById, postUserProfileHandler, getAllBookmark, postBookmarKById, deleteBookmarKById, postFollowHandler, postUnFollowHandler, getAllUserPosts, postUsersPosts, putUpdateUserPost, deleteUserPosts } = require("../controllers/userControler")
+import { getAllUser, getUserById, postUserProfileHandler, getAllBookmark, postBookmarKById, deleteBookmarKById, postFollowHandler, postUnFollowHandler, getAllUserPosts, postUsersPosts, putUpdateUserPost, deleteUserPosts, signUp, logIn } from "../controllers/userControler"
 
 // Handle All user 
 router.get("/", getAllUser)
-router.get("/profile/:userId", getUserById)
+router.post("/signup", signUp)
+router.post("/login", logIn)
+
+// router.get("/profile/:userId", getUserById)
 
 // Handle update user profile
-router.post("/edit", postUserProfileHandler)
+// router.post("/edit", postUserProfileHandler)
 
 // Handle Bookmark  of posts
-router.get("/bookmark", getAllBookmark)
-router.post("/bookmark/:postId", postBookmarKById)
-router.delete("/bookmark/:postId", deleteBookmarKById)
+// router.get("/bookmark", getAllBookmark)
+// router.post("/bookmark/:postId", postBookmarKById)
+// router.delete("/bookmark/:postId", deleteBookmarKById)
 
 // Handle Follow/unFollow req
-router.post("/follow/:followUerId", postFollowHandler)
-router.post("/follow/:followUserId", postUnFollowHandler)
+// router.post("/follow/:followUerId", postFollowHandler)
+// router.post("/follow/:followUserId", postUnFollowHandler)
 
 // Handle  user  post
-router.get("/post", getAllUserPosts)
-router.post("/post/:postId", postUsersPosts)
-router.put("/post/:postId", putUpdateUserPost)
-router.delete("/post/:postId", deleteUserPosts)
+// router.get("/post", getAllUserPosts)
+// router.post("/post/:postId", postUsersPosts)
+// router.put("/post/:postId", putUpdateUserPost)
+// router.delete("/post/:postId", deleteUserPosts)
 
+export default router
 
-
-
-module.exports = router
