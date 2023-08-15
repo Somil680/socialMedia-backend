@@ -80,7 +80,6 @@ export const logIn = asyncHandler(async (req, res) => {
         console.log("🚀 ~ file: userControler.js:80 ~ logIn ~ json:", error.message);
         res.status(400).json("email and password does not match");
     }
-    console.log("truogh")
 });
 
 // GET USER BY ID
