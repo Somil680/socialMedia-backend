@@ -2,12 +2,14 @@ import express from "express"
 import mongoose from "mongoose"
 import router from "./routes/userRoutes"
 import postRouter from "./routes/postRoutes"
-
+import cors from "cors"
 const app = express()
 
 const port = 5000
 
 app.use(express.json())
+
+app.use(cors())
 
 // app.get("/", (req, res) => {
 //     res.status(200).json({ message: "successfully" })
