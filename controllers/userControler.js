@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler"
 import User from "../models/userModel"
 import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
 
 export const getAllUser = asyncHandler(async (req, res) => {
     let users;
@@ -17,7 +18,7 @@ export const getAllUser = asyncHandler(async (req, res) => {
 
 // POST  SIGNUP USER
 export const signUp = asyncHandler(async (req, res) => {
-    const { name, email, password } = req.body
+    const { username, email, password } = req.body
     let existingUser;
     try {
         existingUser = await User.findOne({ email });
@@ -29,7 +30,7 @@ export const signUp = asyncHandler(async (req, res) => {
     }
     const hashPassword = bcrypt.hashSync(password)
     const user = new User({
-        name,
+        username,
         email,
         password: hashPassword,
         posts: [],
@@ -45,19 +46,74 @@ export const signUp = asyncHandler(async (req, res) => {
 
 // POST  LOGIN USER
 export const logIn = asyncHandler(async (req, res) => {
-    const { name, email, password } = req.body
+    const { username, email, password } = req.body;
+
+    // Hash the password before storing it in the database
+    const hashedPassword = bcrypt.hashSync(password, 10);
+
     let existingUser;
     try {
         existingUser = await User.findOne({ email });
     } catch (error) {
         console.log("🚀 ~ file: userControler.js:9 ~ getAllUser ~ error:", error)
     }
-    const passwordIsCorrect = bcrypt.compareSync(password, existingUser.password)
-    if (!passwordIsCorrect) {
-        res.status(400).json({ message: "Incorrect Password" })
+
+    console.log("🚀 ~ file: userControler.js:55 ~ logIn ~ existingUser:", existingUser)
+    const passwordComparer = bcrypt.compareSync(password, existingUser.password)
+    console.log("🚀 ~ file: userControler.js:63 ~ logIn ~ passwordComparer:", passwordComparer)
+    // Check if the user exists and the password matches
+    if (passwordComparer) {
+        // Sign the JWT token with a secret key
+        console.log("signing")
+        const accessToken = jwt.sign({
+            user: {
+                username: existingUser.username,
+                email: existingUser.email,
+                id: existingUser.id
+            }
+        }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "30m" });
+        console.log("🚀 ~ file: userControler.js:74 ~ logIn ~ accessToken:", accessToken)
+        // Return the JWT token and the user data
+        res.status(200).json({ accessToken, user: existingUser });
+    } else {
+        // Return an error if the user does not exist or the password does not match
+        console.log("🚀 ~ file: userControler.js:80 ~ logIn ~ json:", error.message);
+        res.status(400).json("email and password does not match");
     }
-    res.status(200).json({ user: existingUser })
-})
+    console.log("truogh")
+});
+// const { name, email, password } = req.body
+// let existingUser;
+// try {
+//     existingUser = await User.findOne({ email });
+// } catch (error) {
+//     console.log("🚀 ~ file: userControler.js:9 ~ getAllUser ~ error:", error)
+// }
+// if (existingUser && bcrypt.compareSync(password, existingUser.password)) {
+//     const accessToken = jwt.sign({
+//         user: {
+//             name: existingUser.name,
+//             email: existingUser.email,
+//             id: existingUser.id
+//         }
+//     },process.env.ACCESS_TOKEN_SECRET,
+//         { expiresIn: "30m" }
+
+//     )
+//     res.status(200).json({ accessToken, user: existingUser })
+// } else {
+//     res.status(400)
+//     throw new Error("email and password does not match ")
+// }
+// res.status(200).json("login successfully")
+
+// const passwordIsCorrect = bcrypt.compareSync(password, existingUser.password)
+// if (!passwordIsCorrect) {
+//     res.status(400).json({ message: "Incorrect Password" })
+// }
+// res.status(200).json({ user: existingUser })
+// })
+// GET USER BY ID
 export const getUserById = asyncHandler(async (req, res) => {
     res.status(200).json({ message: "get user by userId" })
     console.log("user")
