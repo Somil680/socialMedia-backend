@@ -82,37 +82,7 @@ export const logIn = asyncHandler(async (req, res) => {
     }
     console.log("truogh")
 });
-// const { name, email, password } = req.body
-// let existingUser;
-// try {
-//     existingUser = await User.findOne({ email });
-// } catch (error) {
-//     console.log("🚀 ~ file: userControler.js:9 ~ getAllUser ~ error:", error)
-// }
-// if (existingUser && bcrypt.compareSync(password, existingUser.password)) {
-//     const accessToken = jwt.sign({
-//         user: {
-//             name: existingUser.name,
-//             email: existingUser.email,
-//             id: existingUser.id
-//         }
-//     },process.env.ACCESS_TOKEN_SECRET,
-//         { expiresIn: "30m" }
 
-//     )
-//     res.status(200).json({ accessToken, user: existingUser })
-// } else {
-//     res.status(400)
-//     throw new Error("email and password does not match ")
-// }
-// res.status(200).json("login successfully")
-
-// const passwordIsCorrect = bcrypt.compareSync(password, existingUser.password)
-// if (!passwordIsCorrect) {
-//     res.status(400).json({ message: "Incorrect Password" })
-// }
-// res.status(200).json({ user: existingUser })
-// })
 // GET USER BY ID
 export const getUserById = asyncHandler(async (req, res) => {
     res.status(200).json({ message: "get user by userId" })
