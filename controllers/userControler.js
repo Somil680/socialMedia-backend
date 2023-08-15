@@ -56,7 +56,7 @@ export const logIn = asyncHandler(async (req, res) => {
     if (!passwordIsCorrect) {
         res.status(400).json({ message: "Incorrect Password" })
     }
-    res.status(200).json({ message: "Login Successfully" })
+    res.status(200).json({ user: existingUser })
 })
 export const getUserById = asyncHandler(async (req, res) => {
     res.status(200).json({ message: "get user by userId" })
