@@ -51,15 +51,15 @@ export const logIn = asyncHandler(async (req, res) => {
     // Hash the password before storing it in the database
     const hashedPassword = bcrypt.hashSync(password, 10);
 
-    let existingUser;
+    let user;
     try {
-        existingUser = await User.findOne({ email });
+        user = await User.findOne({ email });
     } catch (error) {
         console.log("🚀 ~ file: userControler.js:9 ~ getAllUser ~ error:", error)
     }
 
-    console.log("🚀 ~ file: userControler.js:55 ~ logIn ~ existingUser:", existingUser)
-    const passwordComparer = bcrypt.compareSync(password, existingUser.password)
+    console.log("🚀 ~ file: userControler.js:55 ~ logIn ~ existingUser:", user)
+    const passwordComparer = bcrypt.compareSync(password, user.password)
     console.log("🚀 ~ file: userControler.js:63 ~ logIn ~ passwordComparer:", passwordComparer)
     // Check if the user exists and the password matches
     if (passwordComparer) {
@@ -67,14 +67,14 @@ export const logIn = asyncHandler(async (req, res) => {
         console.log("signing")
         const accessToken = jwt.sign({
             user: {
-                username: existingUser.username,
-                email: existingUser.email,
-                id: existingUser.id
+                username: user.username,
+                email: user.email,
+                id: user.id
             }
-        }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "30m" });
+        }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "30d" });
         console.log("🚀 ~ file: userControler.js:74 ~ logIn ~ accessToken:", accessToken)
         // Return the JWT token and the user data
-        res.status(200).json({ accessToken, user: existingUser });
+        res.status(200).json({ token: { accessToken }, user });
     } else {
         // Return an error if the user does not exist or the password does not match
         console.log("🚀 ~ file: userControler.js:80 ~ logIn ~ json:", error.message);
