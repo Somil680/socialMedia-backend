@@ -1,6 +1,6 @@
 import express from "express"
 const router = express.Router()
-import { getAllUser, getUserById, postUserProfileHandler, getAllBookmark, postBookmarKById, deleteBookmarKById, postFollowHandler, postUnFollowHandler, getAllUserPosts, postUsersPosts, putUpdateUserPost, deleteUserPosts, signUp, logIn } from "../controllers/userControler"
+import { getAllUser, signUp, logIn } from "../controllers/userControler"
 
 // Handle All user 
 router.get("/", getAllUser)
