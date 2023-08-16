@@ -74,7 +74,7 @@ export const logIn = asyncHandler(async (req, res) => {
         }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "30d" });
         console.log("🚀 ~ file: userControler.js:74 ~ logIn ~ accessToken:", accessToken)
         // Return the JWT token and the user data
-        res.status(200).json({ token: { accessToken }, user });
+        res.status(200).json({ user: { token: { accessToken }, user } });
     } else {
         // Return an error if the user does not exist or the password does not match
         console.log("🚀 ~ file: userControler.js:80 ~ logIn ~ json:", error.message);
