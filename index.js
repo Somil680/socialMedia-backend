@@ -8,10 +8,8 @@ const app = express()
 dotenv.config();
 
 const port = 5000
-
-app.use(express.json())
-
 app.use(cors())
+app.use(express.json())
 
 // app.get("/", (req, res) => {
 //     res.status(200).json({ message: "successfully" })
