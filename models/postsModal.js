@@ -8,7 +8,6 @@ const userSchema = new Schema({
     },
     caption: {
         type: String,
-        required: true
     },
     content: {
         type: String,
@@ -16,7 +15,6 @@ const userSchema = new Schema({
     },
     image: {
         type: String,
-        required: true
     },
     user: {
         type: mongoose.Types.ObjectId,
