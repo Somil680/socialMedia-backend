@@ -36,10 +36,13 @@ export const getPostById = asyncHandler(async (req, res) => {
 export const addPosts = asyncHandler(async (req, res) => {
     const { caption, content, image, user, postId } = req.body
     let existingUser;
+    console.log("🚀 ~ file: postControler.js:39 ~ addPosts ~ existingUser:", existingUser)
     try {
+        console.log("🚀 ~ file: postControler.js:42 ~ addPosts ~ user:", user)
         existingUser = await User.findById(user)
+        console.log("🚀 ~ file: postControler.js:42 ~ addPosts ~ existingUser:", existingUser)
     } catch (error) {
-        console.log("🚀 ~ file: postControler.js:48 ~ addPosts ~ error:", error)
+        console.log("🚀 ~ file: postControler.js:48 ~ addPosts  error:", error)
     }
     if (!existingUser) {
         return res.status(404).json({ message: "No user found" })
@@ -48,22 +51,54 @@ export const addPosts = asyncHandler(async (req, res) => {
         postId,
         caption,
         content,
-        image,
         user
     })
+    console.log("🚀 ~ file: postControler.js:56 ~ addPosts ~ post:", post)
     try {
-        const session = await mongoose.startSession()
-        session.startTransaction()
-        await post.save({ session })
-        existingUser.posts.push(post)
-        await existingUser.save({ session })
-        await session.commitTransaction()
+        console.log("🚀 ~ file: postControler.js:58 ~ addPosts ~ post:", post)
+        // existingUser.posts.push(post)
+        // await existingUser.save({ posts })
+
+        // const session = await mongoose.startSession()
+        // console.log("🚀 ~ file: postControler.js:59 ~ addPosts ~ session:", session)
+        // session.startTransaction()
+        // await post.save({ session })
+        // existingUser.posts.push(post)
+        // await existingUser.save({ session })
+        // await session.commitTransaction()
+
+        const session = await mongoose.startSession();
+
+        session.startTransaction();
+
+        // Save the new post
+        await post.save({ session });
+
+        // Push the post into the existingUser's posts array
+        existingUser.posts.push(post);
+
+        // Save the existingUser
+        await existingUser.save({ session });
+
+        // Commit the transaction
+        await session.commitTransaction();
+        session.endSession();
+
+        console.log("Post added successfully!");
+        return res.status(201).json({ post });
 
     } catch (error) {
-        console.log("🚀 ~ file: postControler.js:31 ~ addPosts ~ error:", error)
-        return res.status(500).json({ message: error })
+        // console.log("🚀 ~ file: postControler.js:31 ~ addPosts ~ error:", error)
+        // return res.status(500).json({ message: error })
+        console.error("Error while adding the post:", error);
+
+        // Rollback the transaction in case of an error
+        // await session.abortTransaction();
+        // session.endSession();
+
+        return res.status(500).json({ message: "Error while adding the post" });
     }
-    return res.status(201).json({ post })
+    // return res.status(201).json({ post })
 
 
 })
@@ -126,24 +161,3 @@ export const getUserPostById = asyncHandler(async (req, res) => {
 
 
 })
-
-
-
-// const getAllPosts = asyncHandler(async (req, res) => {
-//     res.status(200).json({ message: "get all the post " })
-// })
-
-// const getPostByPostId = asyncHandler(async (req, res) => {
-//     res.status(200).json({ message: " get post by post id  " })
-// })
-
-
-// const postLikeHandler = asyncHandler(async (req, res) => {
-//     res.status(200).json({ message: "like the post   " })
-// })
-
-// const deleteUnLikeHandler = asyncHandler(async (req, res) => {
-//     res.status(200).json({ message: " unlike the post  " })
-// })
-
-// exports = { getAllPosts, getPostByPostId, postLikeHandler, deleteUnLikeHandler }

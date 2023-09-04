@@ -10,7 +10,5 @@ postRouter.patch("/:id", updatePost)
 postRouter.delete("/:id", deletePost)
 postRouter.get("user/:id", getUserPostById)
 
-// postRouter.post("/post/:postId", postLikeHandler)
-// postRouter.delete("/post/:postId", deleteUnLikeHandler)
 
 export default postRouter

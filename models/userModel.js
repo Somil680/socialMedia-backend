@@ -3,17 +3,37 @@ const Schema = mongoose.Schema
 const userSchema = new Schema({
     username: {
         required: true,
-        type: 'string',
+        type: String,
     },
     email: {
         required: true,
-        type: 'string',
+        type: String,
         unique: true
 
     },
     password: {
         required: true,
-        type: 'string'
+        type: String
+    },
+    profile_pic: {
+        type: String,
+        default: ""
+    },
+    cover_pic: {
+        type: String,
+        default: ""
+    },
+    followers: {
+        type: Array,
+        default: []
+    },
+    followings: {
+        type: Array,
+        default: []
+    },
+    likedBy: {
+        type: Array,
+        default: []
     },
     posts: [{
         type: mongoose.Schema.Types.ObjectId,
