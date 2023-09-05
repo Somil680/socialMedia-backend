@@ -17,6 +17,19 @@ export const getAllUser = asyncHandler(async (req, res) => {
     }
     return res.status(200).json({ users })
 })
+//  GET ALL USER
+export const getUserById = asyncHandler(async (req, res) => {
+    let users;
+    try {
+        users = await User.findById(req.params.id)
+    } catch (error) {
+        console.log("🚀 ~ file: userControler.js:9 ~ getAllUser ~ error:", error)
+    }
+    if (!users) {
+        res.status(404).json({ message: "User Not Found" })
+    }
+    return res.status(200).json({ users })
+})
 
 // UPDATE THE SINGLE USER
 export const updateUserDetails = asyncHandler(async (req, res) => {
