@@ -2,18 +2,50 @@ import mongoose from "mongoose"
 const Schema = mongoose.Schema
 const userSchema = new Schema({
     username: {
-        required: true,
         type: String,
+        required: true,
+        unique: true,
     },
     email: {
         required: true,
         type: String,
         unique: true
-
     },
     password: {
         required: true,
         type: String
+    },
+    first_name: {
+        type: String,
+        default: ""
+    },
+    last_name: {
+        type: String,
+        default: ""
+    },
+    heading: {
+        type: String,
+        default: ""
+    },
+    bio: {
+        type: String,
+        default: ""
+    },
+    date_of_birth: {
+        type: Date,
+        default: null
+    },
+    city: {
+        type: String,
+        default: ""
+    },
+    state: {
+        type: String,
+        default: ""
+    },
+    country: {
+        type: String,
+        default: ""
     },
     profile_pic: {
         type: String,
@@ -34,6 +66,10 @@ const userSchema = new Schema({
     likedBy: {
         type: Array,
         default: []
+    },
+    is_admin: {
+        type: Boolean,
+        default: false
     },
     posts: [{
         type: mongoose.Schema.Types.ObjectId,
