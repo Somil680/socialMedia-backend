@@ -1,4 +1,6 @@
 import mongoose from "mongoose"
+import postSchema from "./postsModal"; // Import the postSchema from the separate file
+
 const Schema = mongoose.Schema
 const userSchema = new Schema({
     username: {
@@ -71,11 +73,13 @@ const userSchema = new Schema({
         type: Boolean,
         default: false
     },
-    posts: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Post",
-        required: true,
-    }]
+    posts: [Schema.Types.Mixed]
+    // posts: [{
+    //     type: mongoose.Schema.Types.ObjectId,
+
+    //     ref: "Post",
+    //     required: true,
+    // }]
 
 },
     {
