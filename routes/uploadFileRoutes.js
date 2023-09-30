@@ -10,12 +10,12 @@ cloudinary.config({
 });
 
 fileRouter.post("/", (req, res, next) => {
-    const file = req.files.photos;
+    const file = req.files.file;
     try {
         cloudinary.v2.uploader
             .upload(file.tempFilePath,)
             .then(result =>
-                res.status(200).json({ url: result.url })
+                res.status(200).json({ data: { url: result.url } })
             );
 
     } catch (error) {
