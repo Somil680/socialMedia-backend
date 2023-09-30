@@ -5,16 +5,22 @@ import postRouter from "./routes/postRoutes"
 import authRouter from "./routes/authRoutes"
 import cors from "cors"
 import dotenv from 'dotenv';
+import fileUpload from "express-fileupload"
+import fileRouter from "./routes/uploadFileRoutes"
 const app = express()
 dotenv.config();
 
 const port = 5000
+app.use(fileUpload({
+        useTempFiles: true
+}))
 app.use(cors())
 app.use(express.json())
 
 app.use("/api/user", router)
 app.use("/api/post", postRouter)
 app.use("/api/auth", authRouter)
+app.use("/api/uploadFile", fileRouter)
 
 mongoose.connect("mongodb+srv://somilagrawal1510:LhHSocQTH8SAMcWe@Socialmedia.gsctw1j.mongodb.net/?retryWrites=true&w=majority"
 )
