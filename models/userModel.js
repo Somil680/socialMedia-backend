@@ -65,21 +65,12 @@ const userSchema = new Schema({
         type: Array,
         default: []
     },
-    likedBy: {
-        type: Array,
-        default: []
-    },
     is_admin: {
         type: Boolean,
         default: false
     },
     posts: [Schema.Types.Mixed]
-    // posts: [{
-    //     type: mongoose.Schema.Types.ObjectId,
 
-    //     ref: "Post",
-    //     required: true,
-    // }]
 
 },
     {

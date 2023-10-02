@@ -16,11 +16,18 @@ const postSchema = new Schema({
     image: {
         type: String,
     },
-    user: {
+    userId: {
         type: mongoose.Types.ObjectId,
         ref: "User",
         required: true
-    }
+    },
+    // like: [Schema.Types.Mixed],
+    like: {
+        type: Array,
+        default: []
+    },
+    username: Schema.Types.Mixed,
+    profile_pic: Schema.Types.Mixed,
 },
     {
         timestamps: true
