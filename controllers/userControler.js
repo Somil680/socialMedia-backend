@@ -52,8 +52,8 @@ export const followTheUser = asyncHandler(async (req, res) => {
             const user = await User.findById(req.params.id)
             const currentUser = await User.findById(req.body.userId)
             if (!user.followers.includes(req.body.userId)) {
-                await user.updateOne({ $push: { followers: req.body.userId } })
-                await currentUser.updateOne({ $push: { followings: req.params.id } })
+                await user.updateOne({ $push: { followings: req.body.userId } })
+                await currentUser.updateOne({ $push: { followers: req.params.id } })
                 res.status(200).json({ message: 'User follow successfully' })
             } else {
                 res.status(403).json({ message: 'User already follow' })
@@ -72,8 +72,8 @@ export const unFollowTheUser = asyncHandler(async (req, res) => {
             const user = await User.findById(req.params.id)
             const currentUser = await User.findById(req.body.userId)
             if (user.followers.includes(req.body.userId)) {
-                await user.updateOne({ $pull: { followers: req.body.userId } })
-                await currentUser.updateOne({ $pull: { followings: req.params.id } })
+                await user.updateOne({ $pull: { followings: req.body.userId } })
+                await currentUser.updateOne({ $pull: { followers: req.params.id } })
                 res.status(200).json({ message: 'unFollow successfully' })
             } else {
                 res.status(403).json({ message: 'You Can not unFollow' })
