@@ -235,15 +235,21 @@ export const bookmarkPost = asyncHandler(async (req, res) => {
     try {
         const users = await User.findById(req.params.id);
         const post = await Post.findById(req.body.postId)
-        // console.log("🚀 ~ file: postControler.js:236 ~ likeThePost ~ users:", users)
+        await users.updateOne({ $push: { bookmark: post } });
+        res.status(200).json({ message: " post has been added", user: post });
 
-        if (!users.bookmark.includes(req.body.postId)) {
-            await users.updateOne({ $push: { bookmark: req.body.postId } });
-            res.status(200).json({ message: " post has been added", user: users });
-        } else {
-            await users.updateOne({ $pull: { bookmark: req.body.postId } });
-            res.status(200).json({ message: "The post has been removed", user: users });
-        }
+    } catch (err) {
+        res.status(500).json(err);
+    }
+}
+)
+export const removeBookmarkPost = asyncHandler(async (req, res) => {
+    try {
+        const users = await User.findById(req.params.id);
+        const post = await Post.findById(req.body.postId)
+        await users.updateOne({ $pull: { bookmark: post } });
+        res.status(200).json({ message: "The post has been removed", user: users });
+
     } catch (err) {
         res.status(500).json(err);
     }
