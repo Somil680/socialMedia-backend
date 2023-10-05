@@ -65,6 +65,14 @@ const userSchema = new Schema({
         type: Array,
         default: []
     },
+    // bookmark: {
+    //     type: Array,
+    //     default: []
+    // },
+    bookmark: [{
+        type: mongoose.Types.ObjectId,
+        ref: "Post"
+    }],
     is_admin: {
         type: Boolean,
         default: false
