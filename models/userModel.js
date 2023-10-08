@@ -55,7 +55,7 @@ const userSchema = new Schema({
     },
     cover_pic: {
         type: String,
-        default: ""
+        default: "https://res.cloudinary.com/duiavy8qd/image/upload/v1696524914/Connect_Together_Always_rzvapo.png"
     },
     followers: {
         type: Array,
