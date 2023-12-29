@@ -1,12 +1,13 @@
 import express from "express"
 import mongoose from "mongoose"
-import router from "./routes/userRoutes"
-import postRouter from "./routes/postRoutes"
-import authRouter from "./routes/authRoutes"
+import router from "./routes/userRoutes.js"
+import postRouter from "./routes/postRoutes.js"
+import authRouter from "./routes/authRoutes.js"
 import cors from "cors"
 import dotenv from 'dotenv';
 import fileUpload from "express-fileupload"
-import fileRouter from "./routes/uploadFileRoutes"
+import fileRouter from "./routes/uploadFileRoutes.js"
+
 const app = express()
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use("/api/user", router)
 app.use("/api/post", postRouter)
 app.use("/api/auth", authRouter)
 app.use("/api/uploadFile", fileRouter)
+
 
 mongoose.connect("mongodb+srv://somilagrawal1510:LhHSocQTH8SAMcWe@Socialmedia.gsctw1j.mongodb.net/?retryWrites=true&w=majority"
 )

@@ -1,6 +1,6 @@
 import express from "express"
+import { getAllUser, updateUserDetails, followTheUser, unFollowTheUser, getUserById } from "../controllers/userControler.js"
 const router = express.Router()
-import { getAllUser, updateUserDetails, followTheUser, unFollowTheUser, getUserById } from "../controllers/userControler"
 
 // Handle All user 
 router.get("/", getAllUser)
@@ -10,5 +10,5 @@ router.put("/:id/follow", followTheUser)
 router.put("/:id/unfollow", unFollowTheUser)
 
 
-export default router
 
+export default router

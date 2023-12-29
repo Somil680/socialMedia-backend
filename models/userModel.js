@@ -1,5 +1,4 @@
 import mongoose from "mongoose"
-import postSchema from "./postsModal"; // Import the postSchema from the separate file
 
 const Schema = mongoose.Schema
 const userSchema = new Schema({

@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler"
-import Post from "../models/postsModal"
-import User from "../models/userModel"
+import Post from "../models/postsModal.js"
+import User from "../models/userModel.js"
 import mongoose from "mongoose";
 
 // GET ALL POST

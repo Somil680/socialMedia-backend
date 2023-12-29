@@ -1,6 +1,6 @@
 import express from "express"
 const authRouter = express.Router()
-import { signUp, logIn } from "../controllers/authControler"
+import { signUp, logIn } from "../controllers/authControler.js"
 
 // Handle All user 
 authRouter.post("/signup", signUp)
