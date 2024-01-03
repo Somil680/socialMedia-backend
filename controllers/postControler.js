@@ -56,16 +56,6 @@ export const addPosts = asyncHandler(async (req, res) => {
     console.log("🚀 ~ file: postControler.js:56 ~ addPosts ~ post:", post)
     try {
         console.log("🚀 ~ file: postControler.js:58 ~ addPosts ~ post:", post)
-        // existingUser.posts.push(post)
-        // await existingUser.save({ posts })
-
-        // const session = await mongoose.startSession()
-        // console.log("🚀 ~ file: postControler.js:59 ~ addPosts ~ session:", session)
-        // session.startTransaction()
-        // await post.save({ session })
-        // existingUser.posts.push(post)
-        // await existingUser.save({ session })
-        // await session.commitTransaction()
         const session = await mongoose.startSession();
         session.startTransaction();
         // Save the new post
@@ -81,17 +71,9 @@ export const addPosts = asyncHandler(async (req, res) => {
         return res.status(201).json({ post });
 
     } catch (error) {
-        // console.log("🚀 ~ file: postControler.js:31 ~ addPosts ~ error:", error)
-        // return res.status(500).json({ message: error })
         console.error("Error while adding the post:", error);
-
-        // Rollback the transaction in case of an error
-        // await session.abortTransaction();
-        // session.endSession();
-
         return res.status(500).json({ message: "Error while adding the post" });
     }
-    // return res.status(201).json({ post })
 
 
 })
@@ -255,3 +237,28 @@ export const removeBookmarkPost = asyncHandler(async (req, res) => {
     }
 }
 )
+
+export const addCommentOnPost = asyncHandler(async (req, res) => {
+    const { content, userId, } = req.body
+    const newComment = {
+        content,
+        userId
+    }
+    try {
+        const post = await Post.findById(req.params.id);
+        // Find the post by postId
+        if (!post) {
+            throw new Error("Post not found");
+        }
+        // Add the comment to the comments array
+        post.comments.push(newComment);
+        // Save the updated post
+        await post.save();
+        res.status(200).json({ message: "commented on the post ", post: post });
+        // return post;
+    } catch (error) {
+        res.status(500).json(err);
+    }
+}
+)
+
